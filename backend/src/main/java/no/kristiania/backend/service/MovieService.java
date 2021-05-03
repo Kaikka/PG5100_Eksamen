@@ -22,8 +22,7 @@ public class MovieService {
     - Create movie V
     - Delete movie V
     - Add review to movie with stars V
-    - Retrieve all movies, sorted by avg stars DESC
-    - Retrieve all reviews for movie, sorted by stars OR creation time of the review
+    - Retrieve all movies, sorted by avg stars DESC V
     +summary+years?
      */
 
