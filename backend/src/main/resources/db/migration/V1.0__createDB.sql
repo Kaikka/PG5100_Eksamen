@@ -8,5 +8,5 @@ create table user_roles (user_username varchar(255) not null, roles varchar(255)
 
 
 create table movies (id bigint not null, title varchar(255), year int not null, director varchar(255), summary varchar(255), avg_rating double, primary key (id));
-create table review (movie_id bigint not null, user_id varchar(255) not null, date_created timestamp, rating integer not null check (rating>=1 AND rating<=5), review_text varchar(2550), primary key (movie_id, user_id));
+create table review (movie_id bigint not null, user_id varchar(255) not null, date_created timestamp, rating integer not null check (rating<=5 AND rating>=1), review_text varchar(2550), primary key (movie_id, user_id));
 alter table user_roles add constraint FKs9rxtuttxq2ln7mtp37s4clce foreign key (user_username) references users; /* what does this do? :D */
