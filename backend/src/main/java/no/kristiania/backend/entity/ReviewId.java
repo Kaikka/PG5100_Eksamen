@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /*
-Class usage taken from https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/jee/jpa/embedded/src/main/java/org/tsdes/intro/jee/jpa/embedded/UserId.java
+Class usage adapted from https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/jee/jpa/embedded/src/main/java/org/tsdes/intro/jee/jpa/embedded/UserId.java
 */
 
 @Embeddable
@@ -20,8 +20,7 @@ public class ReviewId implements Serializable {
     @Column(name = "movie_id")
     private Long movieId;
 
-    // TODO: del this?
-/*    public ReviewId(){}*/
+    public ReviewId(){}
 
     public ReviewId(String userId, Long movieId) {
         this.userId = userId;
