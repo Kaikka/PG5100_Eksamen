@@ -5,8 +5,10 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -26,10 +28,10 @@ public class Review implements Serializable {
     private Date dateCreated;
 
     // TODO: use this?
-/*    @PrePersist
+    @PrePersist
     protected void onCreate() {
         dateCreated = new Date();
-    }*/
+    }
 
     public ReviewId getReviewId() {
         return reviewId;
@@ -58,6 +60,10 @@ public class Review implements Serializable {
     // TODO: get better date format?
     public Date getDateCreated() {
         return dateCreated;
+    }
+    public String getSimpleDateFormat(){
+        SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+        return sd.format(getDateCreated());
     }
 
     public void setDateCreated(Date dateCreated) {

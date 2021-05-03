@@ -39,15 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    //TODO: antMatchers needs more sites or something
     @Override
     protected void configure(HttpSecurity http) {
         try {
             http.csrf().disable();
             http.authorizeRequests()
-                    .antMatchers("/", "/index.jsf", "/signup.jsf", "/assets/**").permitAll()
+                    .antMatchers("/", "/*", "/index.jsf", "moviedetails.jsf", "/signup.jsf", "/assets/**").permitAll()
                     .antMatchers("/javax.faces.resource/**").permitAll()
-                    .antMatchers("/META-INF/resources/ui/**").authenticated()
+                    .antMatchers("/ui/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()

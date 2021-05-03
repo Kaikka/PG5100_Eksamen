@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:sec="http://www.springframework.org/security/tags"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        Moviedetails
+    </ui:define>
+
+
+    <ui:define name="content">
+        <h:form prependId="false">
+            <h:commandButton value="Back" action="/index.jsf?faces-redirect=true" class="btn"/>
+        </h:form>
+
+
+
+        <c:choose>
+            <c:when test="#{!(movieController.selectedMovie==null)}">
+                <c:set var="movie" value="#{movieController.selectedMovie}"> </c:set>
+
+
+                <h1><h:outputLabel value="#{movie.title}"> </h:outputLabel> </h1>
+                <p><h:outputLabel value="#{movie.summary}"> </h:outputLabel></p>
+                <p><h:outputLabel value="#{movie.director}"> </h:outputLabel></p>
+                <p><h:outputLabel value="average rating #{movie.avgRating}/5"> </h:outputLabel></p>
+                <c:choose>
+                    <c:when test="#{movieController.hasReviews}">
+
+                        <h:form prependId="false">
+                            <h:commandButton value="Sort reviews by creation date" action="#{movieController.setMovieReviewsSortedByDate}" class="btn"/>
+                        </h:form>
+                        <h:form prependId="false">
+                            <h:commandButton value="Sort reviews stars" action="#{movieController.setMovieReviewsSortedByRating}" class="btn"/>
+                        </h:form>
+
+                        <div class="movie-container">
+                            <c:forEach var="review" items="#{movieController.movieReviews}">
+                                <div class="movie">
+                                    <h:form prependId="false">
+                                        <h2> <h:outputLabel value="#{review.reviewId.userId}"/> </h2> <h3><h:outputLabel value="Stars: #{review.rating}/5"/></h3>
+                                        <p> <h:outputLabel value="#{review.text}"/></p>
+                                        <p> <h:outputLabel value="#{review.simpleDateFormat}"/></p>
+                                    </h:form>
+                                </div>
+                            </c:forEach>
+                        </div>
+
+                    </c:when>
+                    <c:otherwise>
+                        no reviews
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+            <c:otherwise>
+                This page does not Exist
+            </c:otherwise>
+        </c:choose>
+        <sec:authenticated>
+
+            <h:form prependId="false">
+                <h:outputLabel value="Movie Review too long, max 1000 char"
+                               rendered="${!empty param['error']}"/>
+
+
+                <div class="movie-container" id="reviewInputContainer">
+                    <h:outputText value="Write your own review!"/>
+                    <h:inputTextarea  id="reviewInput" value="#{movieController.reviewText}" class="login"/><br/>
+
+                    <p>Stars:</p>
+                    <h:selectOneMenu id="dropDown" value="#{movieController.rating}">
+                        <f:selectItem itemValue="#{1}" itemLabel="1 Star   " />
+                        <f:selectItem itemValue="#{2}" itemLabel="2 Stars  " />
+                        <f:selectItem itemValue="#{3}" itemLabel="3 Stars  " />
+                        <f:selectItem itemValue="#{4}" itemLabel="4 Stars  " />
+                        <f:selectItem itemValue="#{5}" itemLabel="5 Stars  " />
+                    </h:selectOneMenu>
+
+                    <h:commandButton id="publish" value="Publish" action="#{movieController.addReview}"/>
+                </div>
+            </h:form>
+
+        </sec:authenticated>
+        <sec:anonymous>
+            Log in to write a review!
+        </sec:anonymous>
+
+    </ui:define>
+
+
+
+</ui:composition>
+</html>

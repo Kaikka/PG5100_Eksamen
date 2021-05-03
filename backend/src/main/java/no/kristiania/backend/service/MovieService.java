@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -19,15 +18,6 @@ import java.util.List;
 @Transactional
 public class MovieService {
 
-    //TODO:
-    /*
-    - Create movie V
-    - Delete movie V
-    - Add review to movie with stars V
-    - Retrieve all movies, sorted by avg stars DESC V
-    +summary+years?
-     */
-
     @Autowired
     private EntityManager em;
 
@@ -37,6 +27,11 @@ public class MovieService {
         movie.setYear(year);
         movie.setDirector(director);
         movie.setSummary(summary);
+
+        System.out.println(
+                "New movie added to db: " +
+                title + " (" + year + "), " + "directed by " + director
+        );
 
         em.persist(movie);
 
@@ -50,6 +45,16 @@ public class MovieService {
             return;
         }
         em.remove(movie);
+    }
+
+    public List<Movie> getAllMovies(){
+        TypedQuery<Movie> query = em.createQuery("select m from Movie m", Movie.class);
+        return query.getResultList();
+    }
+
+    public Movie getMovie(long id){
+
+        return em.find(Movie.class, id);
     }
 
     // adapted from https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/spring/security/manual/src/main/java/org/tsdes/intro/spring/security/manual/service/PostService.java
@@ -116,11 +121,17 @@ public class MovieService {
     public List<Movie> getAllMoviesSortedByRating() {
         //TODO: sort by asc also?
         TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.avgRating DESC", Movie.class);
+
+        System.out.println(query.getResultList());
+        for (Movie m : query.getResultList()) {
+            System.out.println(m.getTitle());
+        }
+
         return query.getResultList();
     }
 
     public List<Movie> getAllMoviesSortedByYears() {
-        TypedQuery<Movie> query = em.createQuery("SELECT m from Movie m ORDER BY m.year DESC", Movie.class);
+        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.year DESC", Movie.class);
         return query.getResultList();
     }
 
