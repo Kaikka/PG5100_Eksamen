@@ -21,6 +21,7 @@ public class MovieService {
     @Autowired
     private EntityManager em;
 
+    //public Long createMovie(String title, int year, String director, String summary) {
     public Long createMovie(String title, int year, String director, String summary) {
         Movie movie = new Movie();
         movie.setTitle(title);
@@ -28,9 +29,13 @@ public class MovieService {
         movie.setDirector(director);
         movie.setSummary(summary);
 
-        System.out.println(
+/*        System.out.println(
                 "New movie added to db: " +
                 title + " (" + year + "), " + "directed by " + director
+        );*/
+        System.out.println(
+                "New movie added to db: " +
+                title + ", " + "directed by " + director
         );
 
         em.persist(movie);
@@ -130,9 +135,9 @@ public class MovieService {
         return query.getResultList();
     }
 
-    public List<Movie> getAllMoviesSortedByYears() {
+/*    public List<Movie> getAllMoviesSortedByYears() {
         TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.year DESC", Movie.class);
         return query.getResultList();
-    }
+    }*/
 
 }

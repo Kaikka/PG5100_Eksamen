@@ -19,11 +19,12 @@ public class Movie {
     @Size(min = 1, max = 128)
     private String title;
 
-    @Size(min = 1, max = 128)
     @NotBlank
+    @Size(min = 1, max = 128)
     private String director;
 
     @NotBlank
+    @Size(min = 1800, max = 2200)
     private int year;
 
     @NotBlank

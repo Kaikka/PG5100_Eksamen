@@ -33,8 +33,8 @@ public class MovieController implements Serializable {
     private List<Review> Reviews = new ArrayList<>();
     private String reviewText = "";
 
-    private int year;
-    private String summary;
+/*    private int year;*/
+/*    private String summary;*/
 
 /*
     private Movie selectedMovie;
