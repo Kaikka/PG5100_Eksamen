@@ -1,4 +1,4 @@
-package no.kristiania.frontend;
+package no.kristiania;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

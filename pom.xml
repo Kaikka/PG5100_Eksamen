@@ -41,7 +41,7 @@
 
     <dependencyManagement>
         <dependencies>
-  <!--          <dependency>
+            <dependency>
                 <groupId>javax.enterprise</groupId>
                 <artifactId>cdi-api</artifactId>
                 <version>2.0</version>
@@ -60,14 +60,14 @@
             <dependency>
                 <groupId>org.joinfaces</groupId>
                 <artifactId>jsf-spring-boot-starter</artifactId>
-                &lt;!&ndash;
+                <!--
                     This depends on Spring version, see:
                     https://github.com/joinfaces/joinfaces
                     However, SpringBoot 2.1 would require 4.x (eg 4.0.9) here,
                     but it does not work, whereas 3.2 is fine...
-                &ndash;&gt;
+                -->
                 <version>3.2.3</version>
-            </dependency>-->
+            </dependency>
 
             <!-- SpringBoot BOM -->
             <dependency>
@@ -96,16 +96,17 @@
             </dependency>
 
             <!-- Database -->
-            <!--<dependency>
+            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${version.h2}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${version.postgres}</version>
-            </dependency>-->
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:sec="http://www.springframework.org/security/tags"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+>
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        hkIMDB
+    </ui:define>
+
+
+    <ui:define name="content">
+
+        <h2>hkIMDB</h2>
+
+        <sec:authenticated>
+            <p><h:outputText value="Hello #{userInfoController.userName}"/></p>
+        </sec:authenticated>
+
+
+        <sec:anonymous>
+            You need to login!
+        </sec:anonymous>
+
+        <!--        <sec:authenticated>
+
+                    <h:form prependId="false">
+                        <h:commandButton value="New Match" action="#{matchController.newMatch}" class="gameBtn" id="newMatchBtnId"/>
+                    </h:form>
+
+                    <c:set value="#{userInfoController.stats}" var="stats"/>
+
+                    <p class="victories">Your Victories: </p><h:outputLabel value="#{stats.victories}" class="victories"/>
+
+                    <br/>
+
+                    <p class="loses">Your Defeats: </p> <h:outputLabel value="#{stats.defeats}" class="loses"/>
+                </sec:authenticated>-->
+        <!-- TODO: stuff to view movies etc -->
+
+        <!-- YOINKED BELOW FIX ETC REWRITE :) -->
+<!--        <h2>All Movies</h2>
+        <div class="movie-container">
+            <c:forEach var="movie" items="#{movieController.allMoviesSortedByRating}">
+                <div class="movie">
+                    <h:form prependId="false">
+                        <h2> <h:outputLabel value="#{movie.title}"/></h2>
+                        <p> <h:outputLabel value="#{movie.plot}"/></p>
+                        <p><h:outputLabel value="Director: #{movie.director}"/></p>
+                        <p><h:outputLabel value="Stars: #{movie.avgRating}/5"/></p>
+                    </h:form>
+                    <h:form prependId="false">
+                        <h:commandButton value="Movie Details" action="#{movieController.selectMovie(movie)}" class="btn" p:data-mid = "#{movie.id}" id="MBtnId_#{movie.id}"/>
+                    </h:form>
+                </div>
+            </c:forEach>
+        </div>-->
+
+    </ui:define>
+
+</ui:composition>
+</html>

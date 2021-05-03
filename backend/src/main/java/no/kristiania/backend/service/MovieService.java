@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -60,6 +62,21 @@ public class MovieService {
     //TODO: test which delete above to use
 
 
+    //TODO: refactor this, is very yoinked, importante
+    public Double computeAverageRating(long movieId){
+        TypedQuery<Double> queryAvg = em.createQuery(
+                "select avg(r.rating) from Review r where r.reviewId.movieId=?1", Double.class);
+        queryAvg.setParameter(1, movieId);
+
+        //round average ratings down to one decimal e.g  3.7
+        Double result =  queryAvg.getSingleResult();
+        BigDecimal round = new BigDecimal(result).setScale(1, RoundingMode.HALF_UP);
+        result = round.doubleValue();
+
+        return result;
+    }
+
+
 
     public ReviewId createReview(long movieId, String username, int rating, String reviewText) {
 
@@ -88,13 +105,15 @@ public class MovieService {
         review.setReviewId(reviewId);
 
         //TODO: something with rating on movies?
+        //TODO yoinked, fix
+        Double averageRating = computeAverageRating(movieId);
+        movie.setAvgRating(averageRating);
 
         // TODO do I want to have this return something or just persist?
         return reviewId;
     }
 
     public List<Movie> getAllMoviesSortedByRating() {
-
         //TODO: sort by asc also?
         TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.avgRating DESC", Movie.class);
         return query.getResultList();
@@ -104,6 +123,5 @@ public class MovieService {
         TypedQuery<Movie> query = em.createQuery("SELECT m from Movie m ORDER BY m.year DESC", Movie.class);
         return query.getResultList();
     }
-
 
 }

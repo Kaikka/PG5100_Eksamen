@@ -13,9 +13,6 @@ import java.util.List;
 @Transactional
 public class ReviewService {
 
-    // TODO
-    //     - Retrieve all reviews for movie, sorted by stars OR creation time of the review
-
     @Autowired
     private EntityManager em;
 

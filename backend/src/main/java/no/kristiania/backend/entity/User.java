@@ -27,8 +27,7 @@ public class User {
     @NotNull
     private Boolean enabled;
 
-    public User() {
-    }
+    public User() {}
 
     public String getUsername() {
         return username;
