@@ -1,5 +1,6 @@
 package no.kristiania;
 
+import no.kristiania.frontend.Application;
 import org.springframework.boot.SpringApplication;
 
 public class LocalApplicationRunner {
