@@ -20,7 +20,7 @@ public class Review implements Serializable {
 
     // TODO: column definition?
     @Column(columnDefinition = "text")
-    private String reviewText;
+    private String text;
 
     @NotNull
     private Date dateCreated;
@@ -35,10 +35,9 @@ public class Review implements Serializable {
         return reviewId;
     }
 
-    // TODO: this is red - why?
-/*    public void setReviewId(ReviewId reviewId) {
+    public void setReviewId(ReviewId reviewId) {
         this.reviewId = reviewId;
-    }*/
+    }
 
     public int getRating() {
         return rating;
@@ -48,12 +47,12 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
-    public String getReviewText() {
-        return reviewText;
+    public String getText() {
+        return text;
     }
 
-    public void setReviewText(String reviewText) {
-        this.reviewText = reviewText;
+    public void setText(String reviewText) {
+        this.text = reviewText;
     }
 
     // TODO: get better date format?
