@@ -23,6 +23,12 @@ public class Movie {
     @NotBlank
     private String director;
 
+    @NotBlank
+    private int year;
+
+    @NotBlank
+    private String summary;
+
     private Double avgRating = 0.0;
 
 
@@ -56,5 +62,21 @@ public class Movie {
 
     public void setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
