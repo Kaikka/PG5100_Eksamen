@@ -81,7 +81,7 @@ public class ReviewService {
     }
 
     public Double computeAverageRating(long movieId){
-        TypedQuery<Double> query = em.createQuery("SELECT AVG(r.rating) from Review r WHERE r.reviewId.movieId = :movieId", Double.class);
+        TypedQuery<Double> query = em.createQuery("SELECT AVG(r.rating) from Review r WHERE r.reviewId.movieId=:movieId", Double.class);
         query.setParameter("movieId", movieId);
         return round(query.getSingleResult());
     }
@@ -93,5 +93,4 @@ public class ReviewService {
         return bd.doubleValue();
     }
 
-    //TODO: delete review?
 }
