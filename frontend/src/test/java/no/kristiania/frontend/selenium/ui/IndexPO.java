@@ -33,7 +33,7 @@ public class IndexPO {
     }
 
     public void clickMovieDetails(String id) {
-        WebElement movie = driver.findElement(By.id(id));
+        WebElement movie = driver.findElement(By.id("MovieDetails_" + id));
         movie.click();
     }
 }
