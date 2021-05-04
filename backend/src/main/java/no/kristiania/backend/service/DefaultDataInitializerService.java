@@ -28,11 +28,11 @@ public class DefaultDataInitializerService {
     @PostConstruct
     public void initialize() {
 
-        System.out.println("Adding default database");
-
         attempt(() -> userService.createUser("foo", "123"));
 
         attempt(() -> userService.createUser("bar", "123"));
+
+        attempt(() -> userService.createUser("fjong", "123"));
 
         Long CA = attempt(() -> movieService.createMovie(
                 "Cloud Atlas",
@@ -97,8 +97,8 @@ public class DefaultDataInitializerService {
 
         attempt(() -> reviewService.createReview(
                 ExMachina,
-                "foo",
-                1,
+                "bar",
+                2,
                 "Clumsy and Overblown Fodder for Aspiring Futurists."
         ));
     }
