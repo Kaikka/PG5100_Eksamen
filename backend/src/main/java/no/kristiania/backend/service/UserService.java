@@ -42,15 +42,4 @@ public class UserService {
 
         return true;
     }
-
-    // TODO: getUserByUsername ?
-    //TODO: yoink, fix
-    public User getUserByUsername(String userName){
-        User user = em.find(User.class, userName);
-        if(user == null){
-            throw new IllegalArgumentException("No existing user: " + userName);
-        }
-        return user;
-    }
-
 }
