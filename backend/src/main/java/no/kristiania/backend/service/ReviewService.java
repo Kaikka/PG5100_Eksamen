@@ -36,13 +36,10 @@ public class ReviewService {
         ReviewId reviewId = new ReviewId(username, movieId);
         Review review = em.find(Review.class, reviewId);
 
-        // Create new review if it doesn't exist. Change this if decide to allow multiple comments per user
         boolean persisted = review != null;
         if (!persisted) {
             review = new Review();
         }
-
-        System.out.println("Adding review for " + movie.getTitle() + ", " + rating + " stars, by " + username);
 
         review.setRating(rating);
         review.setReviewText(reviewText);
