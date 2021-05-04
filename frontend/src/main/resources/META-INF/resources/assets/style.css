@@ -41,6 +41,8 @@ a:visited{
     font-size: 1em;
 }
 
+
+
 /*.victories{
     color: rgb(30,30,30);
 }
@@ -49,13 +51,13 @@ a:visited{
     color: rgb(210, 28, 28);
 }*/
 
-.code{
+/*.code{
     color: rgb(71, 53, 25);
 }
 
 .code:visited{
     color: rgb(195, 136, 195)
-}
+}*/
 
 /*.answer{
     display: flex;
@@ -69,3 +71,43 @@ a:visited{
     font-size: 1em;
     font-weight: bold;
 }*/
+
+/*
+yoink*/
+
+.code{
+    color: rgb(71, 53, 25);
+}
+
+.code:visited{
+    color: rgb(195, 136, 195)
+}
+
+
+.movie-container{
+    display: grid;
+    grid-template-columns: 500px;
+    width: 100%;
+    justify-content: space-around;
+
+}
+
+.movie{
+    border: darkgrey 2px solid;
+    margin-bottom: 10px;
+}
+
+#reviewInput{
+    height: 200px;
+
+}
+
+#dropDown{
+    width: 70px;
+    margin: auto;
+}
+
+#publish{
+    margin-bottom: 10em;
+    height: 2em;
+}
