@@ -17,15 +17,6 @@ public class CreateMovieController {
     @Autowired
     private MovieService movieService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     private String title;
     private String director;
     private String summary;
