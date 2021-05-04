@@ -1,11 +1,9 @@
 package no.kristiania.backend.entity;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,9 +52,12 @@ public class Review implements Serializable {
     public Date getDateCreated() {
         return dateCreated;
     }
+
+    //any way to just store unixtime and convert like in javascript?
     public String getSimpleDateFormat(){
-        SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
-        return sd.format(getDateCreated());
+        String pattern = "dd/mm/yyyy HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(getDateCreated());
     }
 
     public void setDateCreated(Date dateCreated) {
