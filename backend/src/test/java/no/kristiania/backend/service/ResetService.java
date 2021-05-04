@@ -11,6 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+/*
+Class adapted from https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/exercise-solutions/quiz-game/part-11/backend/src/test/java/org/tsdes/intro/exercises/quizgame/backend/service/ResetService.java
+*/
+
 @Service
 @Transactional
 public class ResetService {
@@ -25,8 +29,6 @@ public class ResetService {
         deleteEntities(User.class);
         deleteEntities(Movie.class);
         deleteEntities(Review.class);
-
-
     }
 
     private void deleteEntities(Class<?> entity){
@@ -36,7 +38,7 @@ public class ResetService {
 
         String name = entity.getSimpleName();
 
-        Query query = em.createQuery("DELETE from " + name);
+        Query query = em.createQuery("delete from " + name);
         query.executeUpdate();
 
     }
