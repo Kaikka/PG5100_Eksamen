@@ -1,11 +1,10 @@
 package no.kristiania.backend.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -24,13 +23,8 @@ public class Review implements Serializable {
     @Column(columnDefinition = "text")
     private String reviewText;
 
+    @UpdateTimestamp
     private Date dateCreated;
-
-    //TODO: use this?
-    @PrePersist
-    protected void onCreate() {
-        dateCreated = new Date();
-    }
 
     public ReviewId getReviewId() {
         return reviewId;
@@ -61,7 +55,7 @@ public class Review implements Serializable {
         return dateCreated;
     }
     public String getSimpleDateFormat(){
-        SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+        SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
         return sd.format(getDateCreated());
     }
 
