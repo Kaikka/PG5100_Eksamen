@@ -22,6 +22,15 @@ public class MoviePO {
         submit.click();
     }
 
+    public void clickGoBack() {
+        WebElement btn = driver.findElement(By.id("goBackBtn"));
+        btn.click();
+    }
+
+    public void clickSortByDate() {
+        WebElement btn = driver.findElement(By.id("sortReviewsByDateBtn"));
+        btn.click();
+    }
 
 
 }
