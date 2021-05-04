@@ -22,7 +22,7 @@ public class Review implements Serializable {
     private String reviewText;
 
     @UpdateTimestamp
-    private Date dateCreated;
+    private Date date;
 
     public ReviewId getReviewId() {
         return reviewId;
@@ -48,17 +48,17 @@ public class Review implements Serializable {
         this.reviewText = reviewText;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDate(Date dateCreated) {
+        this.date = dateCreated;
     }
 
     public String getDateCreatedSimpleDateFormat() {
-        String pattern = "dd/mm/yyyy HH:mm:ss";
+        String pattern = "dd/MM/yyyy HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        return simpleDateFormat.format(getDateCreated());
+        return simpleDateFormat.format(getDate());
     }
 }
