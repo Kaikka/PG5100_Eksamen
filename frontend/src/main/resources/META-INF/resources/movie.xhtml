@@ -19,7 +19,7 @@
 
 
         <h:form prependId="false">
-            <h:commandButton value="Back" action="/index.jsf?faces-redirect=true" class="btn"/>
+            <h:commandButton id="goBackBtn" value="Back" action="/index.jsf?faces-redirect=true" class="btn"/>
         </h:form>
 
 
@@ -40,10 +40,10 @@
                     <c:when test="#{movieController.hasReviews}">
 
                         <h:form prependId="false">
-                            <h:commandButton value="Sort reviews rating" action="#{movieController.setMovieReviewsSortedByRating}" class="btn"/>
+                            <h:commandButton id="sortReviewsByRatingBtn" value="Sort reviews rating" action="#{movieController.setMovieReviewsSortedByRating}" class="btn"/>
                         </h:form>
                         <h:form prependId="false">
-                            <h:commandButton value="Sort reviews by date" action="#{movieController.setMovieReviewsSortedByDate}" class="btn"/>
+                            <h:commandButton id="sortReviewsByDateBtn" value="Sort reviews by date" action="#{movieController.setMovieReviewsSortedByDate}" class="btn"/>
                         </h:form>
 
                         <div class="review-container">
@@ -78,11 +78,11 @@
 
                     <p>Rating:</p>
                     <h:selectOneMenu id="selectRating" value="#{movieController.rating}">
-                        <f:selectItem itemValue="#{1}" itemLabel="1 Star"/>
-                        <f:selectItem itemValue="#{2}" itemLabel="2 Stars"/>
-                        <f:selectItem itemValue="#{3}" itemLabel="3 Stars"/>
-                        <f:selectItem itemValue="#{4}" itemLabel="4 Stars"/>
-                        <f:selectItem itemValue="#{5}" itemLabel="5 Stars"/>
+                        <f:selectItem id="selectRating_1" itemValue="#{1}" itemLabel="1 Star"/>
+                        <f:selectItem id="selectRating_2" itemValue="#{2}" itemLabel="2 Stars"/>
+                        <f:selectItem id="selectRating_3" itemValue="#{3}" itemLabel="3 Stars"/>
+                        <f:selectItem id="selectRating_4" itemValue="#{4}" itemLabel="4 Stars"/>
+                        <f:selectItem id="selectRating_5" itemValue="#{5}" itemLabel="5 Stars"/>
                     </h:selectOneMenu>
 
                     <h:commandButton id="publish" value="Publish review" class="btn" action="#{movieController.addReview}"/>
