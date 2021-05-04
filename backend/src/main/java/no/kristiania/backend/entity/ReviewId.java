@@ -13,11 +13,10 @@ Class usage adapted from https://github.com/arcuri82/testing_security_developmen
 @Embeddable
 public class ReviewId implements Serializable {
 
-    // TODO: rename columns?
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private String userId;
 
-    @Column(name = "movie_id")
+    @Column(name = "MOVIE_ID")
     private Long movieId;
 
     public ReviewId(){}
