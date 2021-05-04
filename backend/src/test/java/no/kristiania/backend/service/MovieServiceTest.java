@@ -45,6 +45,17 @@ public class MovieServiceTest extends ServiceTestBase {
     }
 
     @Test
+    public void testCreateAndDeleteMovie() {
+        String title = "The Lord of the Foo Bar";
+        long movieId = movieService.createMovie(title,"F. O. O. Barien", "Foo Bar goes to Mordor");
+
+        assertEquals(1, movieService.getAllMovies().size());
+
+        movieService.deleteMovie(movieId);
+        assertEquals(0, movieService.getAllMovies().size());
+    }
+
+    @Test
     public void testGetMovie() {
 
         String title = "The Lord of the Foo Bar";
