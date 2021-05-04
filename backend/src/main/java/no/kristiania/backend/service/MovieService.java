@@ -23,8 +23,6 @@ public class MovieService {
         movie.setDirector(director);
         movie.setSummary(summary);
 
-        System.out.println("New movie added to db: " + title + ", " + "directed by " + director);
-
         em.persist(movie);
 
         return movie.getId();
