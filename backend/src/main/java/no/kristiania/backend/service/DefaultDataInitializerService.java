@@ -21,9 +21,6 @@ public class DefaultDataInitializerService {
     @Autowired
     private MovieService movieService;
 
-    @Autowired
-    private EntityManager em;
-
 
     @PostConstruct
     public void initialize() {
