@@ -32,4 +32,7 @@ All testing was done with embedded db, no docker.
 - Uses PageObjects
 - No tests for getters and setters, as this is redundant. (Source: Anders during lecture)
 
-I'm unhappy with the Selenium-tests. I had some troubles when trying to re-use the setup from the course's repo, and had to go with a bit different code instead. Which seems to not be best practice, but at least they run, both in intelliJ and mvn cmd. Hopefully there's no difference on other systems. 
+I'm unhappy with the Selenium-tests. I had some troubles when trying to re-use the setup from the course's repo, and had to go with a bit different code instead. Which seems to not be best practice, but at least they run, both in intelliJ and mvn cmd. Hopefully there's no difference on other systems.
+
+###Extra note
+For the <id> needed in zip file, I've used the Kandidatnr from Omslag on wiseflow, which was the only given id along with this assignment.
