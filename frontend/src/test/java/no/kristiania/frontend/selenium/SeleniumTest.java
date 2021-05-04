@@ -1,10 +1,8 @@
 package no.kristiania.frontend.selenium;
 
-import no.kristiania.frontend.selenium.ui.CreateMoviePO;
-import no.kristiania.frontend.selenium.ui.IndexPO;
-import no.kristiania.frontend.selenium.ui.MoviePO;
-import no.kristiania.frontend.selenium.ui.SignUpPageObject;
+import no.kristiania.frontend.selenium.ui.*;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -23,7 +21,7 @@ public class SeleniumTest {
 
 
     @Test
-    void testNotLoggedIn() {
+    public void testNotLoggedIn() {
         WebDriver driver = SeleniumDriverHandler.getChromeDriver();
         try {
             driver.get("http://localhost:" + port);
@@ -35,9 +33,21 @@ public class SeleniumTest {
     }
 
     @Test
-    void testCreateUserAndLogOut() throws InterruptedException {
+    public void testDefaultMovies() {
         WebDriver driver = SeleniumDriverHandler.getChromeDriver();
 
+        try {
+            driver.get("http://localhost:" + port);
+            assertThat(driver.getPageSource(), containsString("Ex Machina"));
+            assertThat(driver.getPageSource(), containsString("Cloud Atlas"));
+        } finally {
+            driver.close();
+        }
+    }
+
+    @Test
+    public void testCreateUserAndLogOut() throws InterruptedException {
+        WebDriver driver = SeleniumDriverHandler.getChromeDriver();
         SignUpPageObject signUpObject = new SignUpPageObject(driver);
         IndexPO indexPO = new IndexPO(driver);
 
@@ -56,20 +66,15 @@ public class SeleniumTest {
             Thread.sleep(500);
             assertThat(driver.getPageSource(), containsString("You are not logged in"));
 
-
-/*            signUpObject.enterCredentials("test", "hunter12");
-            Thread.sleep(8000);
-            assertThat(driver.getPageSource(), containsString("User and/or password are wrong."));// caused flakey test
-            Thread.sleep(8000);*/
         } finally {
             driver.close();
         }
     }
 
     @Test
-    void testLoginAndCreateAMovie() throws InterruptedException {
+    public void testLoginAndCreateAMovie() throws InterruptedException {
         WebDriver driver = SeleniumDriverHandler.getChromeDriver();
-        SignUpPageObject signUpObject = new SignUpPageObject(driver);
+        LogInPO logInPO = new LogInPO(driver);
         CreateMoviePO createMoviePO = new CreateMoviePO(driver);
         IndexPO indexPO = new IndexPO(driver);
         try {
@@ -77,8 +82,8 @@ public class SeleniumTest {
             driver.get("http://localhost:" + port);
             indexPO.clickLogInButton();
             Thread.sleep(500);
-            signUpObject.enterCredentials("foo", "123");
-            signUpObject.clickSubmit();
+            logInPO.enterCredentials("foo", "123");
+            logInPO.clickSubmit();
             Thread.sleep(500);
             assertThat(driver.getPageSource(), containsString("Welcome foo"));
             indexPO.clickCreateMovieButton();
@@ -96,23 +101,28 @@ public class SeleniumTest {
     }
 
     @Test
-    void testLoginAndWriteReview() throws InterruptedException {
+    public void testWriteReview() throws InterruptedException {
         WebDriver driver = SeleniumDriverHandler.getChromeDriver();
-        SignUpPageObject signUpObject = new SignUpPageObject(driver);
-        CreateMoviePO createMoviePO = new CreateMoviePO(driver);
+        LogInPO logInPO = new LogInPO(driver);
         MoviePO moviePO = new MoviePO(driver);
         IndexPO indexPO = new IndexPO(driver);
 
         try {
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             driver.get("http://localhost:" + port);
+
+            indexPO.clickMovieDetails("1");
+            Thread.sleep(500);
+            assertThat(driver.getPageSource(), containsString("Login to write a review"));
+            moviePO.clickGoBack();
+            Thread.sleep(500);
             indexPO.clickLogInButton();
             Thread.sleep(500);
-            signUpObject.enterCredentials("bar", "123");
-            signUpObject.clickSubmit();
+            logInPO.enterCredentials("bar", "123");
+            logInPO.clickSubmit();
             Thread.sleep(500);
             assertThat(driver.getPageSource(), containsString("Welcome bar"));
-            indexPO.clickMovieDetails("MovieDetails_1");
+            indexPO.clickMovieDetails("1");
             Thread.sleep(500);
             moviePO.writeInReviewArea("Test review");
             moviePO.clickPublish();
@@ -122,6 +132,76 @@ public class SeleniumTest {
         }
     }
 
+    @Test
+    public void testStars() throws InterruptedException {
+        WebDriver driver = SeleniumDriverHandler.getChromeDriver();
+        LogInPO logInPO = new LogInPO(driver);
+        MoviePO moviePO = new MoviePO(driver);
+        IndexPO indexPO = new IndexPO(driver);
+
+        try {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.get("http://localhost:" + port);
+
+            String rating = "5.0";
+            assertThat(driver.findElement(By.id("MovieRatingID_1")).getText(), containsString(rating));
+            Thread.sleep(500);
+            indexPO.clickLogInButton();
+            Thread.sleep(500);
+            logInPO.enterCredentials("bar", "123");
+            logInPO.clickSubmit();
+            Thread.sleep(500);
+            assertThat(driver.getPageSource(), containsString("Welcome bar"));
+            indexPO.clickMovieDetails("1");
+            Thread.sleep(500);
+            moviePO.writeInReviewArea("Test review");
+            moviePO.clickPublish();
+            Thread.sleep(500);
+            moviePO.clickGoBack();
+            Thread.sleep(500);
+            String newRating = "3.0";
+            assertThat(driver.findElement(By.id("MovieRatingID_1")).getText(), containsString(newRating));
+
+        } finally {
+            driver.close();
+        }
+    }
+
+
+    @Test
+    public void testSorting() throws InterruptedException {
+        WebDriver driver = SeleniumDriverHandler.getChromeDriver();
+        LogInPO logInPO = new LogInPO(driver);
+        MoviePO moviePO = new MoviePO(driver);
+        IndexPO indexPO = new IndexPO(driver);
+
+        try {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.get("http://localhost:" + port);
+
+            indexPO.clickLogInButton();
+            Thread.sleep(500);
+            logInPO.enterCredentials("fjong", "123");
+            logInPO.clickSubmit();
+            Thread.sleep(500);
+            assertThat(driver.getPageSource(), containsString("Welcome fjong"));
+            indexPO.clickMovieDetails("4");
+            Thread.sleep(500);
+            String newReview = "Test review";
+            moviePO.writeInReviewArea(newReview);
+            moviePO.clickPublish();
+            Thread.sleep(500);
+            String top = "I think therefore am I?";
+            assertThat(driver.findElement(By.xpath("//*[@class='review-container']//child::div[1]//child::p[1]")).getText(), containsString(top));
+            Thread.sleep(500);
+            moviePO.clickSortByDate();
+            Thread.sleep(500);
+            assertThat(driver.findElement(By.xpath("//*[@class='review-container']//child::div[1]//child::p[1]")).getText(), containsString(newReview));
+
+        } finally {
+            driver.close();
+        }
+    }
 
 
 
