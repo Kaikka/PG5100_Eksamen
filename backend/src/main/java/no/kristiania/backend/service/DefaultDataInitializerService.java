@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import java.util.function.Supplier;
 
 /*
@@ -24,8 +23,8 @@ public class DefaultDataInitializerService {
     @Autowired
     private ReviewService reviewService;
 
-
-    @SuppressWarnings("ConstantConditions") // Surpress warnings that the attempt()'s may produce NullPointerException to avoid errors when pushing etc
+    // surpress warnings just to avoid warnings for the possible nullpointer from attempt()
+    @SuppressWarnings("ConstantConditions")
     @PostConstruct
     public void initialize() {
 
