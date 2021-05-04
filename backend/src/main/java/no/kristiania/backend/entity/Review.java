@@ -17,8 +17,6 @@ public class Review implements Serializable {
     @Range(min = 1, max = 5)
     private int rating;
 
-    //TODO: column definition?
-    @Column(columnDefinition = "text")
     private String reviewText;
 
     @UpdateTimestamp
