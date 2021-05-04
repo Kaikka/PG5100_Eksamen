@@ -26,18 +26,10 @@ public class MovieService {
     public Long createMovie(String title, String director, String summary) {
         Movie movie = new Movie();
         movie.setTitle(title);
-        //movie.setYear(year);
         movie.setDirector(director);
         movie.setSummary(summary);
 
-/*        System.out.println(
-                "New movie added to db: " +
-                title + " (" + year + "), " + "directed by " + director
-        );*/
-        System.out.println(
-                "New movie added to db: " +
-                title + ", " + "directed by " + director
-        );
+        System.out.println("New movie added to db: " + title + ", " + "directed by " + director);
 
         em.persist(movie);
 
@@ -53,41 +45,38 @@ public class MovieService {
         em.remove(movie);
     }
 
-    public List<Movie> getAllMovies(){
-        TypedQuery<Movie> query = em.createQuery("select m from Movie m", Movie.class);
-        return query.getResultList();
-    }
 
-    public Movie getMovie(long id){
-
-        return em.find(Movie.class, id);
-    }
-
+    /*
     // adapted from https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/spring/security/manual/src/main/java/org/tsdes/intro/spring/security/manual/service/PostService.java
-/*    public void deleteMovie(long id) {
+    // em does this better, no?
+    public void deleteMovie(long id) {
         Query query = em.createQuery("DELETE FROM Movie m WHERE m.id=:id");
         query.setParameter("id", id);
         query.executeUpdate();
     }*/
 
-    //TODO: test which delete above to use
+    public Movie getMovie(long id) {
 
-
-    //TODO: refactor this, is very yoinked, importante
-    public Double computeAverageRating(long movieId){
-        TypedQuery<Double> queryAvg = em.createQuery(
-                "select avg(r.rating) from Review r where r.reviewId.movieId=?1", Double.class);
-        queryAvg.setParameter(1, movieId);
-
-        //round average ratings down to one decimal e.g  3.7
-        Double result =  queryAvg.getSingleResult();
-        BigDecimal round = new BigDecimal(result).setScale(1, RoundingMode.HALF_UP);
-        result = round.doubleValue();
-
-        return result;
+        return em.find(Movie.class, id);
     }
 
+    public List<Movie> getAllMovies() {
+        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m", Movie.class);
 
+        return query.getResultList();
+    }
+
+    public List<Movie> getAllMoviesSortedByDescRating() {
+        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.avgRating DESC", Movie.class);
+
+        return query.getResultList();
+    }
+
+    public List<Movie> getAllMoviesSortedByAscRating() {
+        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.avgRating ASC", Movie.class);
+
+        return query.getResultList();
+    }
 
     public ReviewId createReview(long movieId, String username, int rating, String reviewText) {
 
@@ -104,8 +93,7 @@ public class MovieService {
         ReviewId reviewId = new ReviewId(username, movieId);
         Review review = em.find(Review.class, reviewId);
 
-        // If user has no review, create it, else update existing
-        //TODO: check if this is correct comment :^)
+        // Create new review if it doesn't exist. Change this if decide to allow multiple comments per user
         boolean persisted = review != null;
         if (!persisted) {
             review = new Review();
@@ -117,69 +105,25 @@ public class MovieService {
         review.setReviewText(reviewText);
         review.setReviewId(reviewId);
 
-        if(!persisted){
+        if(!persisted) {
             em.persist(review);
         }
 
-        //TODO: something with rating on movies?
-        //TODO yoinked, fix
-        Double averageRating = computeAverageRating(movieId);
-        movie.setAvgRating(averageRating);
+        movie.setAvgRating(computeAverageRating(movieId));
 
-        // TODO do I want to have this return something or just persist?
         return reviewId;
     }
 
-/*    public ReviewId createReview(long movieId, String userId, int rating, String reviewText){
-        Movie movie = em.find(Movie.class, movieId);
-        if(movie == null){
-            throw new IllegalArgumentException("Movie id " + movieId + "does not exist!");
-        }
-
-        System.out.println("Creating review for " + movie.getTitle());
-
-        User user = em.find(User.class, userId);
-
-        if(user == null){
-            throw new IllegalArgumentException("User id " + userId + "does not exist!");
-        }
-
-        System.out.println("Review for " + movie.getTitle() + " written by " + user.getUsername());
-
-        ReviewId reviewId = new ReviewId(userId, movieId);
-
-        Review review = em.find(Review.class, reviewId);
-
-        boolean persisted = !(review==null);
-        if(!persisted){
-            review = new Review();
-        }
-
-        review.setReviewText(reviewText);
-        review.setReviewId(reviewId);
-        review.setRating(rating);
-
-        if(!persisted){
-            em.persist(review);
-        }
-
-        //update movieAverage
-        Double averageRating = computeAverageRating(movieId);
-        movie.setAvgRating(averageRating);
-
-        return reviewId;
-    }*/
-
-    public List<Movie> getAllMoviesSortedByRating() {
-        //TODO: sort by asc also?
-        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.avgRating DESC", Movie.class);
-
-        return query.getResultList();
+    public Double computeAverageRating(long movieId){
+        TypedQuery<Double> query = em.createQuery("SELECT AVG(r.rating) from Review r WHERE r.reviewId.movieId = :movieId", Double.class);
+        query.setParameter("movieId", movieId);
+        return round(query.getSingleResult());
     }
 
-/*    public List<Movie> getAllMoviesSortedByYears() {
-        TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.year DESC", Movie.class);
-        return query.getResultList();
-    }*/
-
+    /* adapted from https://www.baeldung.com/java-round-decimal-number#rounding-doubles-with-bigdecimal , unsure if this comment is needed as this seems like a very generic method */
+    private static double round(double value) {
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(1, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }
