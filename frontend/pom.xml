@@ -148,7 +148,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>quizgame</finalName>
+                    <finalName>hkIMDB</finalName>
                     <classifier>exec</classifier>
                 </configuration>
                 <executions>
@@ -160,28 +160,6 @@
                 </executions>
             </plugin>
         </plugins>
-
-<!--        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.heroku.sdk</groupId>
-                    <artifactId>heroku-maven-plugin</artifactId>
-                    <version>2.0.2</version>
-                    <configuration>
-                        <appName>quizgame-pg5100</appName>
-                        <includeTarget>false</includeTarget>
-                        <includes>
-                            <include>target/quizgame-exec.jar</include>
-                        </includes>
-                        <processTypes>
-                            <web>java -Dserver.port=$PORT -jar target/quizgame-exec.jar</web>
-                        </processTypes>
-                        <jdkVersion>11</jdkVersion>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>-->
-
     </build>
 
 </project>
