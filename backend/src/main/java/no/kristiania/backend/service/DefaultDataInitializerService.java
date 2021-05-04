@@ -45,7 +45,7 @@ public class DefaultDataInitializerService {
                 "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron."
         ));
 
-        attempt(() -> movieService.createMovie(
+        Long Her = attempt(() -> movieService.createMovie(
                 "Her",
                 "Spike Jonze",
                 "In a near future, a lonely writer develops an unlikely relationship with an operating system designed to meet his every need."
@@ -64,7 +64,7 @@ public class DefaultDataInitializerService {
         ));
 
 
-        //TODO do I want to randomize this with ratings/users?
+        //randomizing reviews is probably better - attempt if time
 
         attempt(() -> movieService.createReview(
                 CA,
