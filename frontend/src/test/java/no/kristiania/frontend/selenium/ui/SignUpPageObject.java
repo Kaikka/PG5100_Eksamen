@@ -13,7 +13,6 @@ public class SignUpPageObject {
     }
 
 
-
     public void clickSubmit() {
         WebElement submit = driver.findElement(By.id("submit"));
         submit.click();
@@ -26,6 +25,4 @@ public class SignUpPageObject {
         user.sendKeys(username);
         pass.sendKeys(password);
     }
-
-
 }
