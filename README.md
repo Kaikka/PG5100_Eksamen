@@ -1,7 +1,7 @@
 #PG5100_Exam
 
 ###How to
-You can access the server at `http://localhost:8080` after starting it with `LocalApplicationRunner`, located in `PG5100_Eksamen\frontend\src\test\java\no\kristiania\frontend\`
+You can access the server at `http://localhost:8080` after starting it with `LocalApplicationRunner`, located in `frontend\src\test\java\no\kristiania\frontend\`
 
 ###Solution
 The backend consists of 3 entities and one embeddable ID-class for connecting reviews with both user and movie. There are also services for each of the entities, allowing for wanted features, such as creating movies. In a larger project with intent to publish, or with more time, entities would have more info, but it said in requirement R1 that this was up to me. 
