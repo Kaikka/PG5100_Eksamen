@@ -31,7 +31,7 @@ public class ReviewService {
         System.out.println("Getting all reviews sorted by time");
 
         TypedQuery<Review> query = em.createQuery(
-                "SELECT r FROM Review r WHERE r.reviewId.movieId=:movieId ORDER BY r.dateCreated DESC", Review.class);
+                "SELECT r FROM Review r WHERE r.reviewId.movieId=:movieId ORDER BY r.date DESC", Review.class);
         query.setParameter("movieId", movieId);
         System.out.println(query.getResultList());
         return query.getResultList();
