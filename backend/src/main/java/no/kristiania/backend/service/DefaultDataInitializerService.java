@@ -22,6 +22,7 @@ public class DefaultDataInitializerService {
     private MovieService movieService;
 
 
+    @SuppressWarnings("ConstantConditions") // Surpress warnings that the attempt()'s may produce NullPointerException to avoid errors when pushing etc
     @PostConstruct
     public void initialize() {
 
