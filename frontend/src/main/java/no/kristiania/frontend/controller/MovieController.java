@@ -33,15 +33,6 @@ public class MovieController implements Serializable {
     private List<Review> Reviews = new ArrayList<>();
     private String reviewText = "";
 
-/*    private int year;*/
-/*    private String summary;*/
-
-/*
-    private Movie selectedMovie;
-
-TODO: all this yoinked
-
-    */
 
     public List<Movie> getAllMoviesSortedByDescRating(){
         return movieService.getAllMoviesSortedByDescRating();
@@ -58,12 +49,8 @@ TODO: all this yoinked
             setMovieReviewsSortedByRating();
             hasReviews = !Reviews.isEmpty();
         }
-
-
         return "/movie.jsf?faces-redirect=true";
-
     }
-
 
     public Movie getSelectedMovie() {
         return selectedMovie;
@@ -85,19 +72,15 @@ TODO: all this yoinked
     }
 
     public String addReview(){
-        if(rating == null || reviewText.length()> 999){
+
+        if(rating == null || reviewText.length()> 999) {
             return "/movie.jsf?faces-redirect=true&error=true";
-        }else {
-            int ratingValue = Integer.parseInt(rating);
-
-            System.out.println("adding review..");
-
-            reviewService.createReview(selectedMovie.getId(), getUserName(), (ratingValue), reviewText);
+        } else {
+            reviewService.createReview(selectedMovie.getId(), getUserName(), Integer.parseInt(rating), reviewText);
             setMovieReviewsSortedByRating();
-
             setReviewText("");
-            return "/movie.jsf?faces-redirect=true";
 
+            return "/movie.jsf?faces-redirect=true";
         }
 
     }
