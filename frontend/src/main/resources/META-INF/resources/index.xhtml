@@ -28,7 +28,7 @@
                 <div class="movie">
                     <h:form prependId="false">
                         <h2><h:outputLabel value="#{movie.title}"/></h2>
-                        <p><h:outputLabel value="Rating: #{movie.avgRating}"/></p>
+                        <p><h:outputLabel value="Rating: #{movie.avgRating}" id="MovieRatingID_#{movie.id}"/></p>
                         <p><h:outputLabel value="Director: #{movie.director}"/></p>
                         <p><h:outputLabel value="#{movie.summary}"/></p>
                     </h:form>
