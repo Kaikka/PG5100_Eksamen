@@ -45,16 +45,6 @@ public class MovieService {
         em.remove(movie);
     }
 
-
-    /*
-    // adapted from https://github.com/arcuri82/testing_security_development_enterprise_systems/blob/master/intro/spring/security/manual/src/main/java/org/tsdes/intro/spring/security/manual/service/PostService.java
-    // em does this better, no?
-    public void deleteMovie(long id) {
-        Query query = em.createQuery("DELETE FROM Movie m WHERE m.id=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-    }*/
-
     public Movie getMovie(long id) {
 
         return em.find(Movie.class, id);
@@ -99,7 +89,7 @@ public class MovieService {
             review = new Review();
         }
 
-        System.out.println("Adding review for " + movie.getTitle() + ", " + rating + " stars, by " + username + "\n" + reviewText);
+        System.out.println("Adding review for " + movie.getTitle() + ", " + rating + " stars, by " + username);
 
         review.setRating(rating);
         review.setReviewText(reviewText);
