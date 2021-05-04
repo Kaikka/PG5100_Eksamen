@@ -48,19 +48,17 @@ public class Review implements Serializable {
         this.reviewText = reviewText;
     }
 
-    // TODO: get better date format?
     public Date getDateCreated() {
         return dateCreated;
     }
 
-    //any way to just store unixtime and convert like in javascript?
-    public String getSimpleDateFormat(){
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getDateCreatedSimpleDateFormat() {
         String pattern = "dd/mm/yyyy HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(getDateCreated());
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
     }
 }
