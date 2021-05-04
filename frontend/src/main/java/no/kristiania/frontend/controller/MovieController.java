@@ -44,7 +44,7 @@ TODO: all this yoinked
     */
 
     public List<Movie> getAllMoviesSortedByRating(){
-        return movieService.getAllMoviesSortedByRating();
+        return movieService.getAllMoviesSortedByDescRating();
     }
 
     public String selectMovie(Movie movie){
