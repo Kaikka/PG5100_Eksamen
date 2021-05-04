@@ -28,7 +28,6 @@ public class DefaultDataInitializerService {
 
         System.out.println("Adding default database");
 
-
         attempt(() -> userService.createUser("foo", "123"));
 
         attempt(() -> userService.createUser("bar", "123"));
