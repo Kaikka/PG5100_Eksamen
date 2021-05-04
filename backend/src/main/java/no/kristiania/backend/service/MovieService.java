@@ -22,10 +22,10 @@ public class MovieService {
     private EntityManager em;
 
     //public Long createMovie(String title, int year, String director, String summary) {
-    public Long createMovie(String title, int year, String director, String summary) {
+    public Long createMovie(String title, String director, String summary) {
         Movie movie = new Movie();
         movie.setTitle(title);
-        movie.setYear(year);
+        //movie.setYear(year);
         movie.setDirector(director);
         movie.setSummary(summary);
 
@@ -110,9 +110,15 @@ public class MovieService {
             review = new Review();
         }
 
+        System.out.println("Adding review for " + movie.getTitle() + ", " + rating + " stars, by " + username + "\n" + reviewText);
+
         review.setRating(rating);
-        review.setText(reviewText);
+        review.setReviewText(reviewText);
         review.setReviewId(reviewId);
+
+        if(!persisted){
+            em.persist(review);
+        }
 
         //TODO: something with rating on movies?
         //TODO yoinked, fix
@@ -123,14 +129,49 @@ public class MovieService {
         return reviewId;
     }
 
+/*    public ReviewId createReview(long movieId, String userId, int rating, String reviewText){
+        Movie movie = em.find(Movie.class, movieId);
+        if(movie == null){
+            throw new IllegalArgumentException("Movie id " + movieId + "does not exist!");
+        }
+
+        System.out.println("Creating review for " + movie.getTitle());
+
+        User user = em.find(User.class, userId);
+
+        if(user == null){
+            throw new IllegalArgumentException("User id " + userId + "does not exist!");
+        }
+
+        System.out.println("Review for " + movie.getTitle() + " written by " + user.getUsername());
+
+        ReviewId reviewId = new ReviewId(userId, movieId);
+
+        Review review = em.find(Review.class, reviewId);
+
+        boolean persisted = !(review==null);
+        if(!persisted){
+            review = new Review();
+        }
+
+        review.setReviewText(reviewText);
+        review.setReviewId(reviewId);
+        review.setRating(rating);
+
+        if(!persisted){
+            em.persist(review);
+        }
+
+        //update movieAverage
+        Double averageRating = computeAverageRating(movieId);
+        movie.setAvgRating(averageRating);
+
+        return reviewId;
+    }*/
+
     public List<Movie> getAllMoviesSortedByRating() {
         //TODO: sort by asc also?
         TypedQuery<Movie> query = em.createQuery("SELECT m FROM Movie m ORDER BY m.avgRating DESC", Movie.class);
-
-        System.out.println(query.getResultList());
-        for (Movie m : query.getResultList()) {
-            System.out.println(m.getTitle());
-        }
 
         return query.getResultList();
     }

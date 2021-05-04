@@ -20,14 +20,13 @@ public class Review implements Serializable {
     @Range(min = 1, max = 5)
     private int rating;
 
-    // TODO: column definition?
+    //TODO: column definition?
     @Column(columnDefinition = "text")
-    private String text;
+    private String reviewText;
 
-    @NotNull
     private Date dateCreated;
 
-    // TODO: use this?
+    //TODO: use this?
     @PrePersist
     protected void onCreate() {
         dateCreated = new Date();
@@ -49,12 +48,12 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
-    public String getText() {
-        return text;
+    public String getReviewText() {
+        return reviewText;
     }
 
-    public void setText(String reviewText) {
-        this.text = reviewText;
+    public void setReviewText(String reviewText) {
+        this.reviewText = reviewText;
     }
 
     // TODO: get better date format?

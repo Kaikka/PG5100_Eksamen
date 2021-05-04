@@ -44,7 +44,6 @@ TODO: all this yoinked
     */
 
     public List<Movie> getAllMoviesSortedByRating(){
-        System.out.println("Getting all movies sorted by rating");
         return movieService.getAllMoviesSortedByRating();
     }
 
@@ -86,6 +85,8 @@ TODO: all this yoinked
             return "/moviedetails.jsf?faces-redirect=true&error=true";
         }else {
             int ratingValue = Integer.parseInt(rating);
+
+            System.out.println("adding review..");
 
             movieService.createReview(selectedMovie.getId(), getUserName(), (ratingValue), reviewText);
             setMovieReviewsSortedByRating();

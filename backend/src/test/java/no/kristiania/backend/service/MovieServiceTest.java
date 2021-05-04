@@ -26,7 +26,7 @@ public class MovieServiceTest extends ServiceTestBase {
     public void testCreateMovie(){
 
         String title = "Movie Title";
-        long movieId = movieService.createMovie(title, 2005, "Foo Bar", "Foo Bar on a trip");
+        long movieId = movieService.createMovie(title,"Foo Bar", "Foo Bar on a trip");
 
         assertEquals(1, movieService.getAllMovies().size());
         assertEquals(title, movieService.getMovie(movieId).getTitle());
