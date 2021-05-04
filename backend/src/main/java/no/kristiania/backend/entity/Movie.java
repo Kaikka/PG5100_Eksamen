@@ -23,10 +23,6 @@ public class Movie {
     @Size(min = 1, max = 128)
     private String director;
 
-/*    @NotBlank
-    @Size(min = 1800, max = 2200)
-    private int year;*/
-
     @NotBlank
     private String summary;
 
@@ -64,14 +60,6 @@ public class Movie {
     public void setAvgRating(Double avgRating) {
         this.avgRating = avgRating;
     }
-
-/*    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }*/
 
     public String getSummary() {
         return summary;
