@@ -34,7 +34,7 @@ public class ReviewServiceTest extends ServiceTestBase {
 
         userService.createUser("foo", "123");
 
-        movieService.createReview(movie1, "foo", 5, "text");
+        reviewService.createReview(movie1, "foo", 5, "text");
 
         assertEquals(1, reviewService.getAllReviews(movie1).size());
     }
@@ -47,9 +47,9 @@ public class ReviewServiceTest extends ServiceTestBase {
         userService.createUser("foo", "123");
         userService.createUser("bar", "123");
 
-        movieService.createReview(movie1, "foo", 5, "text");
-        Thread.sleep(1000); // sleep so theres a bit of difference in time on reviews
-        movieService.createReview(movie1, "bar", 3, "text");
+        reviewService.createReview(movie1, "foo", 5, "text");
+        Thread.sleep(2000); // sleep so theres a bit of difference in time on reviews
+        reviewService.createReview(movie1, "bar", 3, "text");
 
         List<Review> byRating = reviewService.getAllReviewsSortedByAvgRating(movie1);
         assertTrue(byRating.get(0).getRating() > byRating.get(1).getRating());

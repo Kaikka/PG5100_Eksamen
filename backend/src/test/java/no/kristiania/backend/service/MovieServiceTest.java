@@ -71,8 +71,8 @@ public class MovieServiceTest extends ServiceTestBase {
 
         userService.createUser("foo", "123");
 
-        movieService.createReview(movie1, "foo", 5, "text");
-        movieService.createReview(movie2, "foo", 2, "text");
+        reviewService.createReview(movie1, "foo", 5, "text");
+        reviewService.createReview(movie2, "foo", 2, "text");
 
         List<Movie> desc = movieService.getAllMoviesSortedByDescRating();
         List<Movie> asc = movieService.getAllMoviesSortedByAscRating();
@@ -83,12 +83,12 @@ public class MovieServiceTest extends ServiceTestBase {
     @Test
     public void testCreateReviewForMovieThatDoesNotExist() {
         userService.createUser("foo", "123");
-        assertThrows(IllegalArgumentException.class, () -> movieService.createReview(1, "foo", 5, "text"));
+        assertThrows(IllegalArgumentException.class, () -> reviewService.createReview(1, "foo", 5, "text"));
     }
 
     @Test
     public void testCreateReviewWithUserThatDoesNotExist() {
         long movie1 = movieService.createMovie("Title1","Director1", "Summary1");
-        assertThrows(IllegalArgumentException.class, () -> movieService.createReview(movie1, "foo", 5, "text"));
+        assertThrows(IllegalArgumentException.class, () -> reviewService.createReview(movie1, "foo", 5, "text"));
     }
 }

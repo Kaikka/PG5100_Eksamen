@@ -21,6 +21,9 @@ public class DefaultDataInitializerService {
     @Autowired
     private MovieService movieService;
 
+    @Autowired
+    private ReviewService reviewService;
+
 
     @SuppressWarnings("ConstantConditions") // Surpress warnings that the attempt()'s may produce NullPointerException to avoid errors when pushing etc
     @PostConstruct
@@ -65,35 +68,35 @@ public class DefaultDataInitializerService {
 
         //randomizing reviews is probably better - attempt if time
 
-        attempt(() -> movieService.createReview(
+        attempt(() -> reviewService.createReview(
                 CA,
                 "foo",
                 5,
                 "Possibly one of the best movies of all time."
         ));
 
-        attempt(() -> movieService.createReview(
+        attempt(() -> reviewService.createReview(
                 ExMachina,
                 "foo",
                 4,
                 "I think therefore am I?"
         ));
 
-        attempt(() -> movieService.createReview(
+        attempt(() -> reviewService.createReview(
                 Hackers,
                 "bar",
                 4,
                 "Although not very accurate, it is an excellent film. On the other hand, I am a sucker for Angelina Jolie so that might be the reason why I loved it. I recommend catching this one when it is on or renting it. Well worth it."
         ));
 
-        attempt(() -> movieService.createReview(
+        attempt(() -> reviewService.createReview(
                 LOTR,
                 "bar",
                 5,
                 "To Mordor!"
         ));
 
-        attempt(() -> movieService.createReview(
+        attempt(() -> reviewService.createReview(
                 ExMachina,
                 "foo",
                 1,

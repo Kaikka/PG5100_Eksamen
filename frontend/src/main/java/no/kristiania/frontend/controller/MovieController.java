@@ -88,7 +88,7 @@ TODO: all this yoinked
 
             System.out.println("adding review..");
 
-            movieService.createReview(selectedMovie.getId(), getUserName(), (ratingValue), reviewText);
+            reviewService.createReview(selectedMovie.getId(), getUserName(), (ratingValue), reviewText);
             setMovieReviewsSortedByRating();
 
             setReviewText("");
