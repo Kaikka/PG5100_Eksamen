@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
+>
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">
+        Create movie
+    </ui:define>
+
+
+
+
+    <ui:define name="content">
+
+        <sec:anonymous>
+            Sneaky, are you?
+        </sec:anonymous>
+
+        <sec:authenticated>
+
+            <h:form prependId="false">
+                <div>
+                    <h:outputLabel value="Error! Fill out info in all fields"
+                                   rendered="${!empty param['error']}"/><br/>
+
+                    <h:outputText value="Movie name: "/>
+                    <h:inputText id="title" value="#{createMovieController.title}" class="login"/><br/>
+                    <h:outputText value="Director: "/>
+                    <h:inputText id="director" value="#{createMovieController.director}" class="login"/><br/>
+                    <h:outputText value="Summary: "/>
+                    <h:inputText id="summary" value="#{createMovieController.summary}" class="login"/><br/>
+
+                    <h:commandButton id="submit" value="Create Movie" action="#{createMovieController.CreateMovie}" class="gameBtn"/>
+                </div>
+            </h:form>
+
+        </sec:authenticated>
+
+
+    </ui:define>
+
+</ui:composition>
+
+</html>

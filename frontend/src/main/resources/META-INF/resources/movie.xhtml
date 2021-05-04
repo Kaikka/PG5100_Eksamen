@@ -30,7 +30,7 @@
                 <h1><h:outputLabel value="#{movie.title}"> </h:outputLabel> </h1>
                 <p><h:outputLabel value="#{movie.summary}"> </h:outputLabel></p>
                 <p><h:outputLabel value="#{movie.director}"> </h:outputLabel></p>
-                <p><h:outputLabel value="average rating #{movie.avgRating}/5"> </h:outputLabel></p>
+                <p><h:outputLabel value="average rating #{movie.avgRating}"> </h:outputLabel></p>
                 <c:choose>
                     <c:when test="#{movieController.hasReviews}">
 

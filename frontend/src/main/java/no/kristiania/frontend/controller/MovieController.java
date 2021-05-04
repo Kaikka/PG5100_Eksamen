@@ -43,8 +43,12 @@ TODO: all this yoinked
 
     */
 
-    public List<Movie> getAllMoviesSortedByRating(){
+    public List<Movie> getAllMoviesSortedByDescRating(){
         return movieService.getAllMoviesSortedByDescRating();
+    }
+
+    public List<Movie> getAllMoviesSortedByAscRating(){
+        return movieService.getAllMoviesSortedByAscRating();
     }
 
     public String selectMovie(Movie movie){
@@ -56,7 +60,7 @@ TODO: all this yoinked
         }
 
 
-        return "/moviedetails.jsf?faces-redirect=true";
+        return "/movie.jsf?faces-redirect=true";
 
     }
 
@@ -82,7 +86,7 @@ TODO: all this yoinked
 
     public String addReview(){
         if(rating == null || reviewText.length()> 999){
-            return "/moviedetails.jsf?faces-redirect=true&error=true";
+            return "/movie.jsf?faces-redirect=true&error=true";
         }else {
             int ratingValue = Integer.parseInt(rating);
 
@@ -92,7 +96,7 @@ TODO: all this yoinked
             setMovieReviewsSortedByRating();
 
             setReviewText("");
-            return "/moviedetails.jsf?faces-redirect=true";
+            return "/movie.jsf?faces-redirect=true";
 
         }
 
