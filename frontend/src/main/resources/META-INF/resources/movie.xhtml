@@ -11,43 +11,48 @@
 <ui:composition template="/layout.xhtml">
 
     <ui:define name="title">
-        Moviedetails
+        Movie info
     </ui:define>
 
 
     <ui:define name="content">
+
+
         <h:form prependId="false">
             <h:commandButton value="Back" action="/index.jsf?faces-redirect=true" class="btn"/>
         </h:form>
-
 
 
         <c:choose>
             <c:when test="#{!(movieController.selectedMovie==null)}">
                 <c:set var="movie" value="#{movieController.selectedMovie}"> </c:set>
 
+                <div class="movie-container">
+                    <div class="movie">
+                        <h1><h:outputLabel value="#{movie.title}"> </h:outputLabel> </h1>
+                        <p><h:outputLabel value="Rating: #{movie.avgRating}"> </h:outputLabel></p>
+                        <p><h:outputLabel value="Director: #{movie.director}"> </h:outputLabel></p>
+                        <p><h:outputLabel value="#{movie.summary}"> </h:outputLabel></p>
+                    </div>
+                </div>
 
-                <h1><h:outputLabel value="#{movie.title}"> </h:outputLabel> </h1>
-                <p><h:outputLabel value="#{movie.summary}"> </h:outputLabel></p>
-                <p><h:outputLabel value="#{movie.director}"> </h:outputLabel></p>
-                <p><h:outputLabel value="average rating #{movie.avgRating}"> </h:outputLabel></p>
                 <c:choose>
                     <c:when test="#{movieController.hasReviews}">
 
                         <h:form prependId="false">
-                            <h:commandButton value="Sort reviews by creation date" action="#{movieController.setMovieReviewsSortedByDate}" class="btn"/>
+                            <h:commandButton value="Sort reviews rating" action="#{movieController.setMovieReviewsSortedByRating}" class="btn"/>
                         </h:form>
                         <h:form prependId="false">
-                            <h:commandButton value="Sort reviews stars" action="#{movieController.setMovieReviewsSortedByRating}" class="btn"/>
+                            <h:commandButton value="Sort reviews by date" action="#{movieController.setMovieReviewsSortedByDate}" class="btn"/>
                         </h:form>
 
-                        <div class="movie-container">
+                        <div class="review-container">
                             <c:forEach var="review" items="#{movieController.movieReviews}">
-                                <div class="movie">
+                                <div class="review">
                                     <h:form prependId="false">
-                                        <h2> <h:outputLabel value="#{review.reviewId.userId}"/> </h2> <h3><h:outputLabel value="Stars: #{review.rating}/5"/></h3>
-                                        <p> <h:outputLabel value="#{review.reviewText}"/></p>
-                                        <p> <h:outputLabel value="#{review.dateCreatedSimpleDateFormat}"/></p>
+                                        <h3><h:outputLabel value="Rating: #{review.rating}/5"/></h3>
+                                        <p><h:outputLabel value="#{review.reviewText}"/></p>
+                                        <p><h:outputLabel value="#{review.dateCreatedSimpleDateFormat} by #{review.reviewId.userId}"/></p>
                                     </h:form>
                                 </div>
                             </c:forEach>
@@ -55,41 +60,39 @@
 
                     </c:when>
                     <c:otherwise>
-                        no reviews
+                        <p><h:outputText value="#{movie.title} has no reviews yet."/></p>
                     </c:otherwise>
                 </c:choose>
             </c:when>
-            <c:otherwise>
-                This page does not Exist
-            </c:otherwise>
-        </c:choose>
+        </c:choose><br/>
+
         <sec:authenticated>
 
             <h:form prependId="false">
-                <h:outputLabel value="Movie Review too long, max 1000 char"
+                <h:outputLabel value="Your review was too long, nobody wants to read that much!"
                                rendered="${!empty param['error']}"/>
 
+                <div class="review-container" id="reviewInputContainer">
+                    <h:outputText value="Write review"/>
+                    <h:inputTextarea id="reviewInputField" value="#{movieController.reviewText}" class="inputField"/><br/>
 
-                <div class="movie-container" id="reviewInputContainer">
-                    <h:outputText value="Write your own review!"/>
-                    <h:inputTextarea  id="reviewInput" value="#{movieController.reviewText}" class="login"/><br/>
-
-                    <p>Stars:</p>
-                    <h:selectOneMenu id="dropDown" value="#{movieController.rating}">
-                        <f:selectItem itemValue="#{1}" itemLabel="1 Star   " />
-                        <f:selectItem itemValue="#{2}" itemLabel="2 Stars  " />
-                        <f:selectItem itemValue="#{3}" itemLabel="3 Stars  " />
-                        <f:selectItem itemValue="#{4}" itemLabel="4 Stars  " />
-                        <f:selectItem itemValue="#{5}" itemLabel="5 Stars  " />
+                    <p>Rating:</p>
+                    <h:selectOneMenu id="selectRating" value="#{movieController.rating}">
+                        <f:selectItem itemValue="#{1}" itemLabel="1 Star"/>
+                        <f:selectItem itemValue="#{2}" itemLabel="2 Stars"/>
+                        <f:selectItem itemValue="#{3}" itemLabel="3 Stars"/>
+                        <f:selectItem itemValue="#{4}" itemLabel="4 Stars"/>
+                        <f:selectItem itemValue="#{5}" itemLabel="5 Stars"/>
                     </h:selectOneMenu>
 
-                    <h:commandButton id="publish" value="Publish" action="#{movieController.addReview}"/>
+                    <h:commandButton id="publish" value="Publish review" class="btn" action="#{movieController.addReview}"/>
                 </div>
             </h:form>
 
         </sec:authenticated>
+
         <sec:anonymous>
-            Log in to write a review!
+            Login to write a review!
         </sec:anonymous>
 
     </ui:define>

@@ -29,13 +29,13 @@
                                    rendered="${!empty param['error']}"/><br/>
 
                     <h:outputText value="Movie name: "/>
-                    <h:inputText id="title" value="#{createMovieController.title}" class="login"/><br/>
+                    <h:inputText id="title" value="#{createMovieController.title}" class="inputField"/><br/>
                     <h:outputText value="Director: "/>
-                    <h:inputText id="director" value="#{createMovieController.director}" class="login"/><br/>
+                    <h:inputText id="director" value="#{createMovieController.director}" class="inputField"/><br/>
                     <h:outputText value="Summary: "/>
-                    <h:inputText id="summary" value="#{createMovieController.summary}" class="login"/><br/>
+                    <h:inputText id="summary" value="#{createMovieController.summary}" class="inputField"/><br/>
 
-                    <h:commandButton id="submit" value="Create Movie" action="#{createMovieController.CreateMovie}" class="gameBtn"/>
+                    <h:commandButton id="submit" value="Create Movie" action="#{createMovieController.CreateMovie}" class="btn"/>
                 </div>
             </h:form>
 

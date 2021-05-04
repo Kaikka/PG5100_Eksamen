@@ -1,4 +1,4 @@
-package no.kristiania.frontend.selenium;
+package no.kristiania.frontend.selenium.ui;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

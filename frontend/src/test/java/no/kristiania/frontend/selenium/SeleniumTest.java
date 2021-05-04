@@ -1,5 +1,9 @@
 package no.kristiania.frontend.selenium;
 
+import no.kristiania.frontend.selenium.ui.CreateMoviePO;
+import no.kristiania.frontend.selenium.ui.IndexPO;
+import no.kristiania.frontend.selenium.ui.MoviePO;
+import no.kristiania.frontend.selenium.ui.SignUpPageObject;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -108,7 +112,7 @@ public class SeleniumTest {
             signUpObject.clickSubmit();
             Thread.sleep(500);
             assertThat(driver.getPageSource(), containsString("Welcome bar"));
-            indexPO.clickMovieDetails("MBtnId_1");
+            indexPO.clickMovieDetails("MovieDetails_1");
             Thread.sleep(500);
             moviePO.writeInReviewArea("Test review");
             moviePO.clickPublish();
